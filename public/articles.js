@@ -2,39 +2,37 @@ let btn = document.getElementById('button');
 let modal = document.querySelector(".modal");
 let closeBtn = document.querySelector(".close-btn");
 
-function toggleModal() {
+function showModal() {
   modal.classList.toggle("show-modal");
 }
 
-function windowOnClick(event) {
+function closeModal(event) {
     if (event.target === modal) {
-        toggleModal();
+        showModal();
     }
 }
 
 function status(response) {
     if (response.status !== 200) {
-      toggleModal();
-      closeBtn.addEventListener("click", toggleModal);
-      window.addEventListener("click", windowOnClick);
+      showModal();
+      closeBtn.addEventListener("click", showModal);
+      window.addEventListener("click", closeModal);
       return;
     }
-    response.json().then(function(data) {
-      console.log(data);
-    });
-  }
+}
 
 
 
 btn.addEventListener('click', function(){
   fetch('/api/v1/articles?limit=5')
-    .then(status)
-    // .then()
-    .catch(function(err) {
-      console.log('Fetch Error:', err);
-    });
-
-  btn.innerHTML = 'Load.....';
-  // btn.disabled = true;
-
+    .then(status(response){
+      if(response.status !== 200){
+        showModal(response.status);
+      }else{
+        return response.json();
+      }
+    })
+    .then(function(response){
+      console.log(response);
+    })
 });
