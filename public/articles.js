@@ -25,9 +25,9 @@ function status(response) {
 
 btn.addEventListener('click', function(){
   fetch('/api/v1/articles?limit=5')
-    .then(status(response){
+    .then((response) => {
       if(response.status !== 200){
-        showModal(response.status);
+        status(response.status);
       }else{
         return response.json();
       }
