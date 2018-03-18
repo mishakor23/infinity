@@ -4,14 +4,11 @@ let modalContent = document.querySelector('.modal-content');
 let closeBtn = document.querySelector('.close-btn');
 let mainArticlesDiv = document.getElementById('mainArticlesDiv');
 
-function addShowClassToModal() {
-  modal.classList.add('show-modal');
-}
+modal.style.display = 'block';
 
 function closeModal(event) {
-    if (event.target !== modal || event.target === closeBtn) {
+    if (event.target !== modalContent || event.target === closeBtn) {
         modal.style.display = 'none';
-        // modal.classList.remove('show-modal');
     }
 }
 
@@ -33,8 +30,6 @@ function createModalDOM(textError){
   let errParagraph = document.createElement('p');
   errParagraph.innerHTML = textError;
   modalContent.appendChild(errParagraph);
-  addShowClassToModal();
-  closeBtn.addEventListener('click', closeModal);
   document.body.addEventListener('click', closeModal);
 }
 
@@ -44,14 +39,22 @@ function createTitleHTML(title){
   return titlePara;
 }
 
+function createTagHTML(arr){
+
+}
+
+function createDescriptionHTML(description){
+
+}
+
 function renderArticles(articles){
   console.log(articles)
   for(let i = 0; i < articles.length; i++){
     let articleDiv = document.createElement('div');
     let articleTitle = createTitleHTML(articles[i].title);
-    // let articleDescription =
-    // let articleTags =
-    articleDiv.append(articleTitle);
+    // let articleDescription = createDescriptionHTML(articles[i])
+    // let articleTags = createTagHTML(articles[i].tags);
+    articleDiv.append(articleTitle, articleDescription, articleTags);
     mainArticlesDiv.appendChild(articleDiv);
   }
 }
