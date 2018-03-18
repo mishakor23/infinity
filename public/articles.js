@@ -4,7 +4,6 @@ let modalContent = document.querySelector('.modal-content');
 let closeBtn = document.querySelector('.close-btn');
 let mainArticlesDiv = document.getElementById('mainArticlesDiv');
 
-modal.style.display = 'block';
 
 function closeModal(event) {
     if (event.target !== modalContent || event.target === closeBtn) {
@@ -30,6 +29,7 @@ function createModalDOM(textError){
   let errParagraph = document.createElement('p');
   errParagraph.innerHTML = textError;
   modalContent.appendChild(errParagraph);
+  modal.style.display = 'block';
   document.body.addEventListener('click', closeModal);
 }
 
