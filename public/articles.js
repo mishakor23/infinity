@@ -3,12 +3,14 @@ let modal = document.querySelector('.modal');
 let modalContent = document.querySelector('.modal-content');
 let closeBtn = document.querySelector('.close-btn');
 let mainArticlesDiv = document.getElementById('mainArticlesDiv');
+let errParagraph = document.createElement('p');
 
 
 function closeModal(event) {
-    if (event.target !== modalContent || event.target === closeBtn) {
+    if (!event.target === modalContent || event.target !== errParagraph || event.target === closeBtn) {
         modal.style.display = 'none';
     }
+    errParagraph.innerHTML = '';
 }
 
 function handleError(status) {
@@ -26,7 +28,6 @@ function handleError(status) {
 }
 
 function createModalDOM(textError){
-  let errParagraph = document.createElement('p');
   errParagraph.innerHTML = textError;
   modalContent.appendChild(errParagraph);
   modal.style.display = 'block';
@@ -34,26 +35,33 @@ function createModalDOM(textError){
 }
 
 function createTitleHTML(title){
-  let titlePara = document.createElement('h5');
+  let titlePara = document.createElement('h3');
   titlePara.innerHTML = title;
   return titlePara;
 }
 
 function createTagHTML(arr){
-
+  let tags = document.createElement('p');
+  tags.innerHTML = arr.join(', ');
+  return tags;
 }
 
 function createDescriptionHTML(description){
-
+  let desc = document.createElement('p');
+  let butn = document.createElement('button');
+  let butnText = document.createTextNode('collapse');
+  desc.innerHTML = description;
+  butn.appendChild(butnText);
+  desc.appendChild(butn);
+  return desc;
 }
 
 function renderArticles(articles){
-  console.log(articles)
   for(let i = 0; i < articles.length; i++){
     let articleDiv = document.createElement('div');
     let articleTitle = createTitleHTML(articles[i].title);
-    // let articleDescription = createDescriptionHTML(articles[i])
-    // let articleTags = createTagHTML(articles[i].tags);
+    let articleDescription = createDescriptionHTML(articles[i].description)
+    let articleTags = createTagHTML(articles[i].tags);
     articleDiv.append(articleTitle, articleDescription, articleTags);
     mainArticlesDiv.appendChild(articleDiv);
   }
