@@ -47,12 +47,14 @@ function createTagHTML(arr){
 }
 
 function createDescriptionHTML(description){
+  let descriptionContainer = document.createElement('div');
   let descShort = document.createElement('p');
   let descFull = document.createElement('p');
   let btnCollapse = document.createElement('button');
   let btnCollapseText = document.createTextNode('collapse');
   let btnExpand = document.createElement('button');
   let btnExpandText = document.createTextNode('expand');
+  descriptionContainer.append(descShort, descFull);
   descShort.innerHTML = description.split(' ').slice(0, 5).join(' ');
   btnCollapse.appendChild(btnCollapseText);
   descShort.appendChild(btnCollapse);
@@ -61,14 +63,18 @@ function createDescriptionHTML(description){
   descFull.appendChild(btnExpand);
   descFull.style.display = 'none';
   btnCollapse.addEventListener('click', function(e){
-    console.log(e)
     if(e.target === btnCollapse){
       descShort.style.display = 'none';
       descFull.style.display = 'block';
     }
   });
-  return descShort;
-  // return descFull;
+  btnExpand.addEventListener('click', function(e){
+    if(e.target === btnExpand){
+      descShort.style.display = 'block';
+      descFull.style.display = 'none';
+    }
+  });
+  return descriptionContainer;
 }
 
 function renderArticles(articles){
