@@ -7,10 +7,9 @@ let errParagraph = document.createElement('p');
 
 
 function closeModal(event) {
-    if (!event.target === modalContent || event.target !== errParagraph || event.target === closeBtn) {
+    if (event.target === modal || event.target === closeBtn){
         modal.style.display = 'none';
     }
-    errParagraph.innerHTML = '';
 }
 
 function handleError(status) {
@@ -63,13 +62,13 @@ function createDescriptionHTML(description){
   descFull.appendChild(btnExpand);
   descFull.style.display = 'none';
   btnCollapse.addEventListener('click', function(e){
-    if(e.target === btnCollapse){
+    if(e.target){
       descShort.style.display = 'none';
       descFull.style.display = 'block';
     }
   });
   btnExpand.addEventListener('click', function(e){
-    if(e.target === btnExpand){
+    if(e.target){
       descShort.style.display = 'block';
       descFull.style.display = 'none';
     }
@@ -78,6 +77,7 @@ function createDescriptionHTML(description){
 }
 
 function renderArticles(articles){
+  if(!articles) return;
   for(let i = 0; i < articles.length; i++){
     let articleDiv = document.createElement('div');
     let articleTitle = createTitleHTML(articles[i].title);
@@ -100,4 +100,5 @@ loadBtn.addEventListener('click', function(){
     .then((data) => {
       renderArticles(data);
     })
+    .catch(error => handleError(error.status));
 });
