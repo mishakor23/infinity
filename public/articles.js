@@ -1,5 +1,5 @@
 let loadBtn = document.getElementById('button');
-let modal = document.querySelector('.modal');
+let overlay = document.querySelector('.overlay');
 let modalContent = document.querySelector('.modal-content');
 let closeBtn = document.querySelector('.close-btn');
 let mainArticlesDiv = document.getElementById('mainArticlesDiv');
@@ -7,8 +7,8 @@ let errParagraph = document.createElement('p');
 
 
 function closeModal(event) {
-    if (event.target === modal || event.target === closeBtn){
-        modal.style.display = 'none';
+    if (event.target === overlay || event.target === closeBtn){
+        overlay.style.display = 'none';
     }
 }
 
@@ -29,7 +29,7 @@ function handleError(status) {
 function createModalDOM(textError){
   errParagraph.innerHTML = textError;
   modalContent.appendChild(errParagraph);
-  modal.style.display = 'block';
+  overlay.style.display = 'block';
   document.body.addEventListener('click', closeModal);
 }
 
@@ -61,17 +61,13 @@ function createDescriptionHTML(description){
   btnExpand.appendChild(btnExpandText);
   descFull.appendChild(btnExpand);
   descFull.style.display = 'none';
-  btnCollapse.addEventListener('click', function(e){
-    if(e.target){
+  btnCollapse.addEventListener('click', function(){
       descShort.style.display = 'none';
       descFull.style.display = 'block';
-    }
   });
-  btnExpand.addEventListener('click', function(e){
-    if(e.target){
+  btnExpand.addEventListener('click', function(){
       descShort.style.display = 'block';
       descFull.style.display = 'none';
-    }
   });
   return descriptionContainer;
 }
